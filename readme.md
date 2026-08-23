@@ -2,9 +2,16 @@
 
 
 ## Skill
+* [The Book Pattern: Progressive Disclosure for AI Agents](https://idavidov.eu/orchestration-pattern-technical-book)
+* [Skills: Domain Expertise on Demand](https://idavidov.eu/skills-domain-expertise-on-demand)
+* [Explore First: Why the Agent Looks Before It Writes](https://idavidov.eu/explore-first-the-browser-use-workflow)
+* [From Prompt to Passing Test: A Complete Agentic QA Session](https://idavidov.eu/from-prompt-to-passing-test)
+* [AI-Native Workflow: The Operating Manual for Your Agent](https://idavidov.eu/ai-native-workflow)
+* [CLAUDE.md: Teaching the AI Your Rules](https://idavidov.eu/claude-md-teaching-the-ai-your-rules)
+* [The Scaffold: Playwright Project Structure Built for AI](https://idavidov.eu/the-scaffold-playwright-ai)
 
-The Book Pattern: Progressive Disclosure for AI Agents
-https://idavidov.eu/orchestration-pattern-technical-book
+
+
 
 
 
@@ -35,5 +42,4 @@ it works for the same reason a good book works. cheap on day 1, deep when you ne
 quick test. a colleague asks where the rule about X lives in your project. if you cannot answer in 5 seconds, the failure is the architecture, not the colleague. your agent fails the same way, it just never tells you
 
 
-
-https://media.licdn.com/dms/image/v2/D4D22AQHoWsFNgYIdbw/feedshare-shrink_800/B4DZ66uMo8HcAc-/0/1781249133424?e=1788998400&v=beta&t=6-YWMguQV5A2JIKcwJtUtiNYiAkLg9nJgT808_Z2Qjk
+![Your repo is the technical book](https://media.licdn.com/dms/image/v2/D4D22AQHoWsFNgYIdbw/feedshare-shrink_800/B4DZ66uMo8HcAc-/0/1781249133424?e=1788998400&v=beta&t=6-YWMguQV5A2JIKcwJtUtiNYiAkLg9nJgT808_Z2Qjk)
