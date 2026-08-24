@@ -1,4 +1,8 @@
 
+## SkillOpt
+
+https://microsoft.github.io/SkillOpt/
+https://venturebeat.com/orchestration/microsofts-open-source-skillopt-automatically-upgrades-ai-agent-skills-without-touching-model-weights
 
 
 ## Skill
