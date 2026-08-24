@@ -14,7 +14,7 @@ https://venturebeat.com/orchestration/microsofts-open-source-skillopt-automatica
 * [CLAUDE.md: Teaching the AI Your Rules](https://idavidov.eu/claude-md-teaching-the-ai-your-rules)
 * [The Scaffold: Playwright Project Structure Built for AI](https://idavidov.eu/the-scaffold-playwright-ai)
 
-
+## worktree
 
 
 
