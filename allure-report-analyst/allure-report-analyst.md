@@ -2,21 +2,71 @@
 
 **Solution:** Allure Failure Analysis (Agent + Skill)
 
-### Overview
-This solution adds an AI-assisted failure analysis layer to the existing Cypress/Playwright + Allure test automation pipeline. It runs after the weekend Azure DevOps automation job completes, reads the raw Allure results, and produces a failure-focused report — distinguishing genuine test/product defects from environment noise, locator drift, and flaky tests, and tracking each failure's status across runs (new, recurring, flaky, resolved).
+
+# Allure Failure Analysis (Agent + Skill)
+
+## Overview
+This solution adds an AI-assisted failure analysis layer to the existing
+Cypress/Playwright + Allure test automation pipeline. It runs after the
+weekend Azure DevOps automation job completes, reads the raw Allure results,
+and produces a failure-focused report — distinguishing genuine test/product
+defects from environment noise, locator drift, and flaky tests, and tracking
+each failure's status across runs (new, recurring, flaky, resolved).
 
 It is implemented as two GitHub Copilot `.github` primitives:
-- **`allure-failure-analyst` (agent/chatmode)** — orchestrates the workflow: locates the results, asks minimal scoping questions, invokes the skill, and formats output for the intended audience (manager status report or engineering-detail report).
-- **`allure-report-analysis` (skill)** — holds the durable logic: how to parse Allure result files, the failure classification taxonomy, and the cross-run failure ledger schema.
 
-### Purpose
-1. **Reduce manual triage time.** Today, failure review is a manual Monday-morning read-through of the Allure HTML report. This solution pre-classifies and prioritizes failures so the team reviews a ranked summary instead of a raw list.
-2. **Separate signal from noise.** Not every failure is a defect — environment blips and flaky tests currently get mixed into the same pass-rate number as genuine regressions. Classification keeps the reported pass-rate trend meaningful.
-3. **Make recurrence visible.** A failure appearing for the third consecutive week currently looks the same as a first-time failure. The ledger makes recurrence explicit and flags long-standing failures as candidates for the test-healing workflow rather than continued manual re-triage.
-4. **Produce a consistent, audience-appropriate artifact.** One underlying analysis, two output shapes — a concise report for the manager status update, and a detailed table for the automation team to action — so the same run doesn't require separate manual write-ups.
-5. **Stay low-governance-risk.** The solution only reads results and writes a ledger — it does not file defects, modify test code, or attempt auto-healing. Those remain separate, higher-governance workflows, consistent with your execution/reporting-first sequencing for AI adoption.
+- **`allure-failure-analyst` (agent/chatmode)** — orchestrates the workflow:
+  locates the results, asks minimal scoping questions, invokes the skill,
+  and formats output for the intended audience (manager status report or
+  engineering-detail report).
+  See [`chatmodes/allure-failure-analyst.chatmode.md`](./chatmodes/allure-failure-analyst.chatmode.md)
 
-Want me to fold this into a proper design doc (Word), or drop it in as a `README.md` alongside the agent/skill files in the outputs folder?
+- **`allure-report-analysis` (skill)** — holds the durable logic: how to
+  parse Allure result files, the failure classification taxonomy, and the
+  cross-run failure ledger schema.
+  See [`skills/allure-report-analysis/SKILL.md`](./skills/allure-report-analysis/SKILL.md)
+
+## Purpose
+1. **Reduce manual triage time.** Today, failure review is a manual
+   Monday-morning read-through of the Allure HTML report. This solution
+   pre-classifies and prioritizes failures so the team reviews a ranked
+   summary instead of a raw list.
+2. **Separate signal from noise.** Not every failure is a defect —
+   environment blips and flaky tests currently get mixed into the same
+   pass-rate number as genuine regressions. Classification keeps the
+   reported pass-rate trend meaningful.
+3. **Make recurrence visible.** A failure appearing for the third
+   consecutive week currently looks the same as a first-time failure. The
+   ledger makes recurrence explicit and flags long-standing failures as
+   candidates for the test-healing workflow rather than continued manual
+   re-triage.
+4. **Produce a consistent, audience-appropriate artifact.** One underlying
+   analysis, two output shapes — a concise report for the manager status
+   update, and a detailed table for the automation team to action — so the
+   same run doesn't require separate manual write-ups.
+5. **Stay low-governance-risk.** The solution only reads results and writes
+   a ledger — it does not file defects, modify test code, or attempt
+   auto-healing. Those remain separate, higher-governance workflows,
+   consistent with an execution/reporting-first sequencing for AI adoption.
+
+## Inputs
+- `allure-results/*-result.json` — required, per-test status/steps
+- `allure-results/*-container.json` — required, fixture/hook status
+- `allure-results/history/history.json` — optional, improves flaky detection
+- `allure-failure-ledger.json` — optional on first run, read + rewritten each run
+- `categories.json` — optional, can seed/override classification taxonomy
+
+## Open decision
+Ledger (`allure-failure-ledger.json`) and `history/` persistence across
+weekend Azure DevOps runs is not yet finalized — options under
+consideration: commit to a state branch, Azure DevOps retained pipeline
+artifacts, or an Azure Blob Storage account. See conversation history for
+trade-offs.
+
+## Out of scope
+- Auto-filing defects in Azure DevOps
+- Auto-healing or modifying test code
+
 
 
 In Allure's raw results (before generating the HTML report), each test case produces a `*-result.json` file — that's where execution status lives.
